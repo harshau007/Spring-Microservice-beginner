@@ -1,0 +1,24 @@
+server:
+  port: 9095
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/quiz
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: JWT-SERVICE
+  security:
+    user:
+      name: harsh
+      password: harsh
+
+jwt:
+  secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
+  expiration: 86400
