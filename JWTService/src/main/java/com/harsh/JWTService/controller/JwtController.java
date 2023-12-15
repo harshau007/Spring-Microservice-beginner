@@ -5,6 +5,7 @@ import com.harsh.JWTService.entity.AuthRes;
 import com.harsh.JWTService.entity.UserCred;
 import com.harsh.JWTService.entity.UserRes;
 import com.harsh.JWTService.service.AuthServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
@@ -21,22 +22,14 @@ public class JwtController {
 
 
     @PostMapping("/register")
-    public UserRes register(@RequestBody UserCred userCred) {
+    public UserCred register(@RequestBody UserCred userCred) {
         return authService.register(userCred);
     }
 
     @PostMapping("/token") // Change to Validate Token
-    public AuthRes getToken(@RequestBody AuthReq userCred) {
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCred.getName(), userCred.getPassword()));
-//        System.out.println(authentication.isAuthenticated());
-//        if (authentication.isAuthenticated()) {
-//            return authService.generate(userCred);
-//        } else {
-//            throw new RuntimeException("Invalid Token");
-//        }
-
+    public AuthRes getToken(@RequestBody AuthReq userCred, @RequestHeader HttpServletRequest request) {
         if (authService.isValidUser(userCred)) {
-            return authService.generate(userCred);
+            return authService.generate(userCred, request);
         } else {
             throw new RuntimeException("Invalid Token");
         }
